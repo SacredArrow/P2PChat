@@ -7,6 +7,7 @@ import datahash_pb2_grpc
 import sys
 from interface import UserInterface
 from multiprocessing import Process
+from bus import MessageBus
 
 class Server:
     app = None
@@ -18,15 +19,16 @@ class Server:
 
         def receive_message(self, request, context):
             response = datahash_pb2.Text()
-            self.server.app.insert_message(request.data)
+            self.server.bus.incoming_messages.put(request.data)
             # response.data = datahash.receive_message(request.data)
             return response
 
-    def __init__(self):
+    def __init__(self, bus):
+        self.bus = bus
         # создаем сервер
         self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
 
-        self.app = UserInterface()
+        self.app = UserInterface(bus)
 
         self.process = Process(target=self.serve)
         self.process.start()
@@ -52,13 +54,14 @@ class Server:
         self.server.start()
 
         while True:
-            while self.app.msg_q:
-                msg = self.app.msg_q.get()
+            while self.bus.outcoming_messages:
+                msg = self.bus.outcoming_messages.get()
                 print(msg)
                 to_sha256 = datahash_pb2.Text(data=msg)
                 response = stub.receive_message(to_sha256)
 
 
 if __name__ == '__main__':
-    server = Server()
+    bus = MessageBus()
+    server = Server(bus)
     server.serve()
