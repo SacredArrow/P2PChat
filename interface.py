@@ -14,6 +14,7 @@ class UserInterface:
 
         self.window = tk.Tk()
         self.window.title("P2PChad")
+        self.window.protocol('WM_DELETE_WINDOW', self.onClose)
 
         # window.geometry('500x1000')
         self.messages = tk.Text(self.window)
@@ -41,6 +42,11 @@ class UserInterface:
         frame = tk.Frame(self.window)  # , width=300, height=300)
         input_field.bind("<Return>", enter_pressed)
         frame.pack()
+
+    def onClose(self):
+        close_msg = Message("client closed", MessageType.CLIENT_CLOSED)
+        self.pub.send_message(close_msg, "client_closed")
+        self.window.destroy()
 
     def show(self):
         self.window.eval('tk::PlaceWindow %s center' % self.window.winfo_toplevel())

@@ -31,7 +31,7 @@ class Server:
 
         self.app = UserInterface(publisher)
 
-        self.process = Thread(target=self.serve)
+        self.process = Thread(target=self.serve) # Windows-compatibility, otherwise use Process
         self.process.start()
 
         self.app.show()
@@ -50,13 +50,13 @@ class Server:
         print('Starting server on port ' + str(port1))
         self.server.add_insecure_port('[::]:' + str(port1))
         self.server.start()
-
-        while True:
+        running = True
+        while running:
             for msg in self.pub.get_messages(self):
                 if msg.type == MessageType.CLIENT_CLOSED:
                     msg = Message("Server closed", MessageType.SERVER_CLOSED)
                     self.pub.send_message(msg, "server_closed")
-                    exit(0)
+                    running = False
 
                 grpc_text = datahash_pb2.Text(data=msg.text)
                 stub.receive_message(grpc_text)
@@ -65,4 +65,3 @@ class Server:
 if __name__ == '__main__':
     bus = MessageBus()
     server = Server(bus)
-    server.serve()
