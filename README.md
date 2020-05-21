@@ -13,3 +13,9 @@ Generate files with ``python3 -m grpc_tools.protoc -I. --python_out=. --grpc_pyt
 
 Run with ``python main.py <ip> <port1> <port2>``.  
 Example: ``python3 main.py localhost 6062 6061``.
+
+# Made by
+- Кутленков Дмитрий  
+- Чернявский Олег
+- Келим Илья
+- Сергеев Егор
