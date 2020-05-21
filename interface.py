@@ -58,9 +58,12 @@ class UserInterface:
             if msg.type == MessageType.SERVER_CLOSED:
                 close_msg = Message("client closed", MessageType.CLIENT_CLOSED)
                 self.pub.send_message(close_msg, "client_closed")
-                # TODO: implement application termination
+                self.onClose()
                 exit(0)
-
-            self.messages.insert(tk.INSERT, 'Other: %s\n' % msg.text)
-            self.messages.see('end')
+            if msg.type == MessageType.CONNECTION_ERROR:
+                self.messages.insert(tk.INSERT, 'Error: %s\n' % msg.text)
+                self.messages.see('end')
+            else:
+                self.messages.insert(tk.INSERT, 'Peer: %s\n' % msg.text)
+                self.messages.see('end')
         self.window.after(200, self.process_incoming)

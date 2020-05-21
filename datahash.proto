@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-message Text {
-    string data = 1;
-}
-
-service DataHash {
-    rpc receive_message(Text) returns (Text) {};
-}

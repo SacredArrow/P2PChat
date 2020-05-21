@@ -6,6 +6,7 @@ class MessageType(Enum):
     CLIENT_CLOSED = auto()
     SERVER_CLOSED = auto()
     CLIENT_MESSAGE = auto()
+    CONNECTION_ERROR = auto()
 
 
 class Message:

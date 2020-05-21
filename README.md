@@ -1,5 +1,15 @@
 # P2PChat
 
-Generate files with ``python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. datahash.proto``
+## Prerequisites
+- Python 3
+- grpc
+- tkinter
 
-Run with ``python .\my_server.py <port1> <port2>``
+## Preparation
+
+Generate files with ``python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. passing.proto``
+
+## Usage
+
+Run with ``python main.py <ip> <port1> <port2>``.  
+Example: ``python3 main.py localhost 6062 6061``.
