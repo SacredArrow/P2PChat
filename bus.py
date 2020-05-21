@@ -42,4 +42,4 @@ class MessageBus:
 
     def get_messages(self, subscriber):
         while self._queues[subscriber].qsize():
-            yield self._queues[subscriber].get(0)
+            yield self._queues[subscriber].get()

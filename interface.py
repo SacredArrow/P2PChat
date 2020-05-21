@@ -28,8 +28,8 @@ class UserInterface:
 
         def enter_pressed(event):
             input_get = input_field.get()
-            msg = Message(input_get, "outgoing")
-            self.pub.send_message(msg, MessageType.CLIENT_MESSAGE)
+            msg = Message(input_get, MessageType.CLIENT_MESSAGE)
+            self.pub.send_message(msg, "outgoing")
 
             self.messages.insert(tk.INSERT, 'You: %s\n' % input_get)
             # label = Label(window, text=input_get)
