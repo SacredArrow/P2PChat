@@ -8,4 +8,4 @@ RUN python3 -m pip install grpcio grpcio-tools
 
 COPY ./ /chat/
 
-ENTRYPOINT python3 ./chat/server.py 6061 6062
+ENTRYPOINT ["python3", "/chat/main.py", "6061"] 

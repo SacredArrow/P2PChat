@@ -5,7 +5,7 @@ import sys
 
 
 if __name__ == '__main__':
-    ip, port1, port2 = sys.argv[1:4]
+    port1, ip, port2 = sys.argv[1:4]
     bus = MessageBus()
     server = Server(bus)
     app = UserInterface(bus)
