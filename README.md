@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - Python 3
-- grpc
+- grpc (Install with ``python3 -m pip install -r requirements.txt``)
 - tkinter
 
 ## Preparation

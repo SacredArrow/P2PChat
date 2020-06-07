@@ -3,6 +3,11 @@ import tkinter as tk
 
 
 class UserInterface:
+    """
+    User GUI which displays incoming messages and transfers
+    outgoing to the Server (via the MessageBus).
+    """
+
     messages = None
     window = None
     process = None

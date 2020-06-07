@@ -9,9 +9,21 @@ from threading import Thread
 
 
 class Server:
+    """
+    Local server which manages connection to other peer.
+    It accepts messages from the client (with the use of MessageBus)
+    and sends them to the peer via gRPC. It can also receive messages
+    from other peers and put them into the MessageBus for the client
+    to collect.
+    """
+
     server = None
 
     class PassingServicer(passing_pb2_grpc.PassingServicer):
+        """
+        Nested class which processes gRPC calls.
+        """
+        
         def __init__(self, outer_instance):
             self.server = outer_instance
 

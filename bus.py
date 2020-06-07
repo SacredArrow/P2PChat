@@ -10,6 +10,10 @@ class MessageType(Enum):
 
 
 class Message:
+    """
+    Data type which is used to transfer messages through the MessageBus.
+    """
+
     type: MessageType = None
     text = None
 
@@ -19,6 +23,10 @@ class Message:
 
 
 class MessageBus:
+    """
+    Publisher responsible for message exchange between UserInterface and Server.
+    """
+
     _queues = None
     _themes = None
 
